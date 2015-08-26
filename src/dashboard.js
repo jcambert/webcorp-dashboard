@@ -2,14 +2,23 @@
 
 	 
 var dashboard=angular.module('webcorp.dashboard',['webcorp.core']);
-dashboard.run(['$log',function($log){
-	$log.log('Application running');
+dashboard.config(['$logProvider',function($log){
+	$log.debugEnabled(false);
+	console.log('Application configurated');
+}]);
+
+dashboard.run(['$rootScope','$log','configService',function($rootScope,$log,$config){
 	
+	$log.log('Application running');
+	$rootScope.config=$config;
+	$config.set('TemplateRoot','directives/templates/');
 }]);
 
 dashboard.controller('testctrl',['$log','Menus',function($log,$menus){
 	$log.log('testctrl starting');
 	$menus.add(null,'menu0',{label:'label0'}).add(null,'menu1',{label:'label1',isGroup:true}).add('menu1','menu2',{label:'label2'});
+	$log.log('Menu');
+	$log.log($menus.menus());
 	$log.log('testctrl running');
 }]);
 
@@ -22,12 +31,19 @@ dashboard.directive('dashboard',[function(){
 	};
 }]);
 
-dashboard.directive('menus',['Menus',function($menus){
+dashboard.directive('menus',['$compile','Menus','configService',function($compile,$menus,$config){
 	return {
 		restrict:'E',
-		link:function($scope,$element,$attrs){
-			
+		replace:true,
+		templateUrl:function(elem,attrs){
+			return $config.get('TemplateRoot','/directives/templates/')+'menus.tpl.html';
 		}
+		/*link:function($scope,$element,$attrs){
+			//$element.append($config.get('TemplateRoot','test'));
+			var tpl=$config.get('TemplateRoot','/directives/templates/')+'menus.tpl.html';
+			var content=angular.element('<div></div>');
+			$compile(content)($scope);
+		}*/
 	};
 }])
 
