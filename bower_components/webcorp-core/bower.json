@@ -1,0 +1,22 @@
+{
+  "name": "webcorp-core",
+  "version": "0.0.1",
+  "homepage": "http://jc.ambert.free.Fr",
+  "authors": [
+    "Ambert Jean-Christophe<jc.ambert@free.fr>"
+  ],
+  "description": "WebCorp SDK core components.",
+  "main": "dist/webcorp.core.js",
+  "devDependencies": {},
+  "keywords": [
+    "webcorp",
+    "web",
+    "sdk",
+    "core"
+  ],
+  "license": "GPL",
+  "dependencies": {
+    "lodash": "~3.9.3"
+  },
+   "ignore": [  ]
+}

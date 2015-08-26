@@ -1,0 +1,35 @@
+{
+  "name": "webcorp-widget",
+  "homepage": "http://jc.ambert.free.Fr",
+  "authors": [
+    "Ambert Jean-Christophe <j.ambert@free.fr>"
+  ],
+  "description": "Webcorp Dashboard Widget",
+  "main": "dist/webcorp.widget.min.js",
+  "devDependencies": {},
+  "keywords": [
+    "webcorp",
+    "dashboard",
+    "widget"
+  ],
+  "dependencies": {
+    "lodash": "~3.9.3"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "_release": "3907cf0e38",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "3907cf0e389c84634b9d303b9eef49b87feed9df"
+  },
+  "_source": "git://github.com/jcambert/webcorp-widget.git",
+  "_target": "*",
+  "_originalSource": "webcorp-widget"
+}

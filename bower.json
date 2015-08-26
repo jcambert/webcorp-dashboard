@@ -1,0 +1,30 @@
+{
+  "name": "webcorp-dashboard",
+  "version": "0.0.0",
+  "homepage": "https://github.com/jcambert/webcorp-dashboard",
+  "authors": [
+    "jcambert <jc.ambert@free.fr>"
+  ],
+  "description": "Angular dashboard components",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "angular",
+    "dashboard",
+    "components"
+  ],
+  "license": "GPL",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.4",
+    "webcorp-core": "*",
+    "webcorp-widget": "*"
+  }
+}

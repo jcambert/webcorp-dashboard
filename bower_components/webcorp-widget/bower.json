@@ -1,0 +1,27 @@
+{
+  "name": "webcorp-widget",
+  "version": "0.0.0",
+  "homepage": "http://jc.ambert.free.Fr",
+  "authors": [
+    "Ambert Jean-Christophe <j.ambert@free.fr>"
+  ],
+  "description": "Webcorp Dashboard Widget",
+  "main": "dist/webcorp.widget.min.js",
+   "devDependencies": {},
+  "keywords": [
+    "webcorp",
+    "dashboard",
+    "widget"
+  ],
+  "dependencies": {
+    "lodash": "~3.9.3"
+  } ,
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
