@@ -25,6 +25,7 @@
   "dependencies": {
     "angular": "~1.4.4",
     "webcorp-core": "*",
-    "webcorp-widget": "*"
+    "webcorp-widget": "*",
+    "jquery": "~2.1.4"
   }
 }
