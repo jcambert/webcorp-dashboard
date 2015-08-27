@@ -1,0 +1,158 @@
+
+<!doctype html>
+<html lang="fr" ng-app="webcorp.dashboard">
+	<head>
+		<meta charset="utf-8">
+		<script src="bower_components/angular/angular.js"></script>
+		<script src="bower_components/lodash/lodash.js"></script>
+		<script src="bower_components/webcorp-core/dist/webcorp-core.js"></script>
+		
+		<script src="dashboard.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<style>
+			body{
+			    color: #555;
+    			background-color: #EFF1F2;
+			    font: 400 12px/1.42857 "Open Sans",Helvetica,Arial,sans-serif;
+			}
+			article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+			    display: block;
+			}
+			ul, menu, dir {
+			    display: block;
+			    list-style-type: disc;
+			    -webkit-margin-before: 1em;
+			    -webkit-margin-after: 1em;
+			    -webkit-margin-start: 0px;
+			    -webkit-margin-end: 0px;
+			    -webkit-padding-start: 40px;
+			}
+			li {
+			    display: list-item;
+			    text-align: -webkit-match-parent;
+			}
+			a {
+			    background: transparent;
+			}
+
+			.bootstrap * {
+			    /* -webkit-box-sizing: border-box; */
+			    -moz-box-sizing: border-box;
+			    box-sizing: border-box;
+			}
+			
+			.bootstrap a {
+			    color: #00aff0;
+			    text-decoration: none;
+			}
+			
+			.bootstrap ul ul, .bootstrap ul ol, .bootstrap ol ul, .bootstrap ol ol {
+			    margin-bottom: 0;
+			}
+			.bootstrap ul, .bootstrap ol {
+			    margin-top: 0;
+			    margin-bottom: 8.5px;
+			}			
+			
+			#nav-sidebar {
+			    position: fixed;
+			    width: 210px;
+			    height: 100%;
+			    z-index: 500;
+			    background-color: #363A41;
+			    left: 0;
+			}
+			#nav-sidebar ul.menu {
+			    margin: 0;
+			    padding: 0;
+			    list-style: none !important;
+			}
+			#nav-sidebar ul.menu li.maintab {
+			    position: relative;
+			}
+			#nav-sidebar ul.menu li.maintab>a.title i {
+			    vertical-align: middle;
+			    margin-top: -5px;
+			    color: #BEBEBE;
+			    -webkit-transition-property: color;
+			    transition-property: color;
+			    -webkit-transition-duration: 0.4s;
+			    transition-duration: 0.4s;
+			    -webkit-transition-timing-function: ease-out;
+			    transition-timing-function: ease-out;
+			}
+			#nav-sidebar ul.menu li.maintab.active a.title, #nav-sidebar ul.menu li.maintab.active li.active a.title {
+			    border-right: 3px solid brown;
+			    background-color: #282b30;
+			}
+			#nav-sidebar ul.menu li.maintab.active a, #nav-sidebar ul.menu li.maintab.active li.active a i{
+			    color: #fff;
+			}
+			
+			#nav-sidebar ul.menu li.maintab>a.title {
+			    display: block;
+			    position: relative;
+			    padding: 0 0.35em;
+			    height: 34px;
+			    background-color: #363A41;
+			    color: #BEBEBE;
+			    line-height: 34px;
+			    text-decoration: none;
+			    -webkit-transition-property: background-color;
+			    transition-property: background-color;
+			    -webkit-transition-duration: 0.2s;
+			    transition-duration: 0.2s;
+			    -webkit-transition-timing-function: ease-out;
+			    transition-timing-function: ease-out;
+			}
+			#nav-sidebar ul.menu li.maintab a {
+			    white-space: nowrap;
+			    text-overflow: ellipsis;
+			    overflow: hidden;
+			}
+			
+			#nav-sidebar ul.menu li.maintab ul.submenu {
+			    display: none;
+			    padding: 0px;
+			    background-color: #363A41;
+			}
+			.icon, .page-sidebar-closed:not(.nav-topbar):not(.mobile-nav) .searchtab:before, [class^="icon-"], [class^="process-icon-"], .bootstrap .alert.alert-warning:before, .bootstrap .alert.alert-danger:before, .bootstrap #carrier_wizard .wizard_error:before, .bootstrap .alert.alert-success:before, .bootstrap .alert.alert-info:before, .bootstrap .alert.alert-addons:before, .bootstrap .alert.alert-onboarding:before, .bootstrap .alert.alert-message:before, .bootstrap .table td.dragHandle .dragGroup:before, .bootstrap #dashboard .loading .data_value:before, .bootstrap #employee-thumbnail:before, .mce-ico, .chosen-container-single .chosen-single div b, .chosen-container-single .chosen-search:before {
+			    display: inline-block;
+			    font: normal normal normal 14px/1 FontAwesome;
+			    font-size: inherit;
+			    text-rendering: auto;
+			    -webkit-font-smoothing: antialiased;
+			    -moz-osx-font-smoothing: grayscale;
+			    transform: translate(0, 0);
+			}
+
+			@media (max-height: 850px)
+			body:not(.page-sidebar-closed) #nav-sidebar ul.menu li.maintab>a.title {
+			    font-size: 12px;
+			    height: 28px;
+			    line-height: 28px;
+			}
+			@media (max-height: 850px)
+			body:not(.page-sidebar-closed) #nav-sidebar ul.menu li.maintab>a.title i {
+			    vertical-align: baseline;
+			    width: 18px;
+			    font-size: 14px;
+			    text-align: right;
+			}
+			
+			@media (max-height: 850px)
+			body:not(.page-sidebar-closed) #nav-sidebar ul.menu li.maintab ul.submenu {
+			    padding: 1px 1px 0 1px;
+			}
+			
+		</style>
+	</head>
+	<body ng-controller="testctrl">
+		<div class="bootstrap">
+			<nav id="nav-sidebar" role="navigation">
+				<menus></menus>
+			</nav>
+		</div>
+		
+	</body>
+</html>

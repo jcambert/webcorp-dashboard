@@ -3,13 +3,13 @@
 module.exports = function(grunt) {
 		
 	grunt.initConfig({
-	 
+	 	pkg: grunt.file.readJSON('package.json'),
 	    'http-server': {
 	 
 	        'dev': {
 	 
 	            // the server root directory 
-	            root: 'src',
+	            root: '',
 	 
 	            // the server port 
 	            // can also be written as a function, e.g. 
@@ -56,6 +56,6 @@ module.exports = function(grunt) {
 
 	
 	// Default task(s).
-	//grunt.loadNpmTasks('grunt-http-server');
-	grunt.registerTask('default',['http-server:dev']);
+	grunt.loadNpmTasks('grunt-http-server');
+	grunt.registerTask('default','http-server:dev');
 }

@@ -1,0 +1,27 @@
+{
+  "name": "webcorp-dashboard",
+  "version": "0.0.1",
+  "description": "WebCorp Dashboard ",
+  "homepage": "http://jc.ambert.free.fr",
+  "author": "Ambert Jean-Christophe <jc.ambert@free.fr>",
+  "licence": "GPL",
+  "keywords": [
+    "webcorp",
+    "dashboard"
+  ],
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jcambert/webcorp-dashboard"
+  },
+  "devDependencies": {
+   
+  },
+  "engines": {
+    "node": ">=0.10.x",
+    "npm": ">=1.2.x"
+  },
+  "scripts": {
+   
+  }
+}
