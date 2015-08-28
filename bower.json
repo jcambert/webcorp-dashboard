@@ -24,8 +24,10 @@
   ],
   "dependencies": {
     "angular": "~1.4.4",
+    "bootstrap": "~3.3.5",
+    "enquire": "~2.1.2",
+    "jquery": "~2.1.4",
     "webcorp-core": "*",
-    "webcorp-widget": "*",
-    "jquery": "~2.1.4"
+    "webcorp-widget": "*"
   }
 }
