@@ -1,0 +1,29 @@
+<ul class="menu">
+	<!-- ngRepeat: menu in menus -->
+	<li class="maintab  ng-scope" ng-class="{has_submenu:menu.items}">
+		<!-- ngIf: menu.shouldRender() -->
+		<a href="#" class="title ng-scope" ng-if="menu.shouldRender()" ui-sref="route_label0">
+			<i class="fa fa-tachometer"></i>
+			<span class="ng-binding">label0</span>
+		</a><!-- end ngIf: menu.shouldRender() --><!-- ngIf: menu.items -->
+	</li><!-- end ngRepeat: menu in menus -->
+	<li class="maintab  ng-scope has_submenu" ng-class="{has_submenu:menu.items}">
+		<!-- ngIf: menu.shouldRender() -->
+		<a href="#" class="title ng-scope" ng-if="menu.shouldRender()" ui-sref="route_label1">
+			<i class="fa fa-list-alt"></i>
+			<span class="ng-binding">label1</span>
+		</a><!-- end ngIf: menu.shouldRender() --><!-- ngIf: menu.items -->
+		<ul data-ng-if="menu.items" class="submenu ng-scope" style="top: 0px;"><!-- ngIf: menu.shouldRender() -->
+			<a href="#" class="title ng-scope" ng-if="menu.shouldRender()" ui-sref="route_label1">
+			</a><!-- end ngIf: menu.shouldRender() --><!-- ngRepeat: item in menu.items -->
+			<li data-ng-repeat="item in menu.items" class="ng-scope"><!-- ngIf: menu.shouldRender() -->
+				<a href="#" class="title ng-scope" ng-if="menu.shouldRender()" ui-sref="route_label1">
+				</a><!-- end ngIf: menu.shouldRender() --><!-- ngIf: item.label!='' && item.shouldRender() -->
+				<a href="#" ng-if="item.label!='' &amp;&amp; item.shouldRender()" ui-sref="route_label2" class="ng-binding ng-scope">
+					label2
+				</a><!-- end ngIf: item.label!='' && item.shouldRender() -->
+			</li><!-- end ngRepeat: item in menu.items -->
+		</ul><!-- end ngIf: menu.items -->
+		 
+	</li><!-- end ngRepeat: menu in menus -->
+</ul>

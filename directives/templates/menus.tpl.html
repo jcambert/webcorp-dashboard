@@ -1,13 +1,25 @@
 <ul class="menu">
-	<li data-ng-repeat="menu in menus" class="maintab " ng-class="{has_submenu:menu.items}" >
+	<li data-ng-repeat="menu in menus" class="maintab " ng-class="{has_submenu:menu.items}" data-submenu="{{$index}}">
 		<a href="#" class="title" ng-if="menu.shouldRender()" ui-sref="{{menu.route}}">
 			<i class="fa fa-{{menu.icon}}"></i>
 			<span>{{menu.label}}</span>
-			<ul data-ng-if="menu.items"  class="submenu" style="top: 0px;">
-				<li data-ng-repeat="item in menu.items">
-					<a href="#"  ng-if="item.label!='' && item.shouldRender()" ui-sref="{{item.route}}">{{item.label}}</a>
-				</li>
-			</ul>
-		</a> 
+		</a>
+		<ul data-ng-if="menu.items"  class="submenu" style="top: 0px;">
+			<li data-ng-repeat="item in menu.items">
+				<a href="#" class="title" ng-if="item.label!='' && item.shouldRender()" ui-sref="{{item.route}}">{{item.label}}</a>
+			</li>
+		</ul>
+	</li>
+	
+	<li data-ng-repeat="menu in menus" class="maintab " ng-class="{has_submenu:menu.items}" data-submenu="{{$index}}">
+		<a href="#" class="title" ng-if="menu.shouldRender()" ui-sref="{{menu.route}}">
+			<i class="fa fa-{{menu.icon}}"></i>
+			<span>{{menu.label}}</span>
+		</a>
+		<ul data-ng-if="menu.items"  class="submenu" style="top: 0px;">
+			<li data-ng-repeat="item in menu.items">
+				<a href="#" class="title" ng-if="item.label!='' && item.shouldRender()" ui-sref="{{item.route}}">{{item.label}}</a>
+			</li>
+		</ul>
 	</li>
 </ul>
