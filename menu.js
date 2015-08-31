@@ -479,7 +479,7 @@ angular.module('webcorp.ui.menu',[])
 						});
 				},
 				link:function($scope,$element,attrs,menuCtrl){
-					execute();
+					execute(); 	
 				}
 				/*link:function($scope,$element,attrs,menuCtrl){
 					$templateRequest($config.get('TemplateRoot','directives/templates/')+'menus.tpl.html').then(function(template){
