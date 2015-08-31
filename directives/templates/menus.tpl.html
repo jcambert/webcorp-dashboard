@@ -1,5 +1,5 @@
 <ul class="menu" test >
-	<li data-ng-repeat="menu in menus" class="maintab " ng-class="{has_submenu:menu.items}" data-submenu="{{$index}}">
+	<li data-ng-repeat="menu in menus" class="maintab " ng-class="{has_submenu:menu.items}" data-submenu="{{$index}}" ng-mouseover="menu.items?mouse():''">
 		<a href="#" class="title" ng-if="menu.shouldRender()" ui-sref="{{menu.route}}">
 			<i class="fa fa-{{menu.icon}}"></i>
 			<span>{{menu.label}}</span>

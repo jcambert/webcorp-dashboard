@@ -286,8 +286,7 @@ angular.module('webcorp.ui.menu',[])
 				
 				
 				initNav();
-				$log.log('Body');
-				$log.log($('body').html());
+				
 				$('li.maintab.has_submenu').hover(function() {
 					$log.log('sub menu hover start');
 					var submenu = $(this);
@@ -465,7 +464,6 @@ angular.module('webcorp.ui.menu',[])
 				restrict:'E',
 				replace:true,
 				templateUrl:function(elem,attrs){
-					
 						return $config.get('TemplateRoot','directives/templates/')+'menus.tpl.html';
 					},
 				scope:{
@@ -477,23 +475,31 @@ angular.module('webcorp.ui.menu',[])
 							$log.log('doc ready');
 							//execute();
 						});
+						$scope.mouse=function(){
+								
+						};
 				},
 				link:function($scope,$element,attrs,menuCtrl){
-					execute(); 	
+					$log.log($element.html());
+					$element.closest('#maintab').hover(function(){
+						$log.log('internal li hover');
+					});
 				}
 				/*link:function($scope,$element,attrs,menuCtrl){
 					$templateRequest($config.get('TemplateRoot','directives/templates/')+'menus.tpl.html').then(function(template){
 						$log.log($scope.menus);
+						var elem=angular.element(template);
+						$log.log(elem);
+						var linker = $compile(elem);
+						linker($scope);
+						$log.log(elem);
+						$element.parent().append(elem);
 						
-						$log.log(template);
-						var linker = $compile(template);
-						var html=linker($scope,function(html_){
-							$log.log(html_);
-							$element.parent().append(html_);
-							
-							execute();
-							
+						$log.log($(elem).html());
+						$(elem).find('li').hover(function(){
+							$log.log('internal li hover');
 						});
+						//execute();
 						
 						
 						
