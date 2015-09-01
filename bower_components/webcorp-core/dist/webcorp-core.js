@@ -9,7 +9,7 @@ webcorp.namespace = function (namespaceString) {
     if (parts[0] === 'wc' || parts[0] === 'webcorp') {
         parts = parts.slice(1);
     }
-
+    
     var targetParent = webcorp,
         targetName;
 
@@ -76,7 +76,7 @@ webcorp.define('webcorp.ConfigService',function(){
     return self;
 });
 angular.module('webcorp.core',[])
-.factory('configService', function () {
+.factory('$config', function () {
     return new webcorp.ConfigService();
 })
 .factory('locationService', function () {

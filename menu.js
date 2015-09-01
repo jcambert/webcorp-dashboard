@@ -2,7 +2,7 @@
 (function(angular,$,_){
 
 
-angular.module('webcorp.ui.menu',[])
+angular.module('webcorp.ui.menu',['webcorp.core','ui.bootstrap'])
 .service('Roles',['$log',function($log){
 	var self={};
 	
@@ -17,15 +17,8 @@ angular.module('webcorp.ui.menu',[])
 	
 	return self;
 }])
-.directive('menu',['$menu',function($menu){/*'DefaultTemplateRoot','Menus','configService',function($defaultTplRoot,$menus,$config){*/
+.directive('webcorpMenu',['$menu',function($menu){
 	return new $menu('menu',{});
-	/*return {
-		restrict:'E',
-		replace:true,
-		templateUrl:function(elem,attrs){
-			return $config.get('TemplateRoot',$defaultTplRoot)+'menus.tpl.html';
-		}
-	};*/
 }])
 
 .provider('$menu',function(){
@@ -53,15 +46,13 @@ angular.module('webcorp.ui.menu',[])
 	      return (pos ? separator : '') + letter.toLowerCase();
 	    });
 	  }
-	this.$get = ['$log','$document', '$interpolate','$compile','$templateRequest','$menus','configService',function($log,$document,$interpolate,$compile,$templateRequest,$menus,$config){
+	this.$get = ['$log','$document', '$interpolate','$compile','$templateRequest','$menus','$config',function($log,$document,$interpolate,$compile,$templateRequest,$menus,$config){
 		return function $menu(type,options){
 			options = angular.extend({}, defaultOptions, globalOptions, options);
-		 	//var directiveName = snake_case(type);
-		 	//var startSym = $interpolate.startSymbol();
-			//var endSym = $interpolate.endSymbol();
+
 			
 			function navSidebar(){
-				$log.log('init nav');
+				$log.log('init navSidebar');
 				var sidebar = $('#nav-sidebar');
 				sidebar.off();
 				$('.expanded').removeClass('expanded');
@@ -101,11 +92,7 @@ angular.module('webcorp.ui.menu',[])
 		
 					$('body').toggleClass('page-sidebar-closed');
 					$('.expanded').removeClass('expanded');
-					$.ajax({
-						url: "index.php",
-						cache: false,
-						data: "token="+employee_token+'&ajax=1&action=toggleMenu&tab=AdminEmployees&collapse='+Number($('body').hasClass('page-sidebar-closed'))
-					});
+					
 				});
 		
 				var menuCollapse = sidebar.find('.menu-collapse');
@@ -147,6 +134,7 @@ angular.module('webcorp.ui.menu',[])
 		
 			//set main navigation on top
 			function navTopbar() {
+				$log.log('init navTopbar');
 				navTopbarReset();
 				$('#nav-sidebar').attr('id','nav-topbar');
 				var topbar = $('#nav-topbar');
@@ -231,50 +219,21 @@ angular.module('webcorp.ui.menu',[])
 			}
 		
 			//init main navigation
-			function initNav(){
-				if ($('body').hasClass('page-sidebar')){
+			function initNav(position){
+				alert(position);
+				if ( (position && position==='side') || $('body').hasClass('page-sidebar')){
 					navSidebar();
 				}
-				else if ($('body').hasClass('page-topbar')) {
+				else if ((position && position==='top') || $('body').hasClass('page-topbar')) {
 					navTopbar();
 				}
 			}
-		
-			//show footer when reach bottom
-			function animateFooter(){
-				if($(window).scrollTop() + $(window).height() === $(document).height()) {
-					$('#footer:hidden').removeClass('hide');
-				} else {
-					$('#footer').addClass('hide');
-				}
-			}
-		
-			//scroll top
-			function animateGoTop() {
-				if ($(window).scrollTop()) {
-					$('#go-top:hidden').stop(true, true).fadeIn();
-					$('#go-top:hidden').removeClass('hide');
-				} else {
-					$('#go-top').stop(true, true).fadeOut();
-				}
-			}
+
+
 			
 			
 			
-			function scroll_if_anchor(href) {
-				href = typeof(href) === "string" ? href : $(this).attr("href");
-				var fromTop = 120;
-				if(href.indexOf("#") === 0) {
-					var $target = $(href);
-					if($target.length) {
-						$('html, body').animate({ scrollTop: $target.offset().top - fromTop });
-						if(history && "pushState" in history) {
-							history.pushState({}, document.title, window.location.href + href);
-							return false;
-						}
-					}
-				}
-			}
+
 			var timer;
 			var ellipsed = [];
 			
@@ -282,21 +241,21 @@ angular.module('webcorp.ui.menu',[])
 			var closingMenu, openingMenu;
 			
 			
-			function execute(){
+			
+			
+			var controller= function($log,$scope){
 				
 				
-				initNav();
-				
-				$('li.maintab.has_submenu').hover(function() {
-					$log.log('sub menu hover start');
-					var submenu = $(this);
+				$scope.submenu_hover=function($event){
+					//$log.log('submenu hover');
+					var submenu = $($event.currentTarget);
 					if (submenu.is('.active') && submenu.children('ul.submenu').is(':visible')) {
 						return;
 					}
 					clearTimeout(openingMenu);
 					clearTimeout(closingMenu);
 					openingMenu = setTimeout(function(){
-						$log.log('opening menu');
+						//$log.log('opening menu');
 						$('li.maintab').removeClass('hover');
 						$('ul.submenu.outOfBounds').removeClass('outOfBounds').css('top',0);
 						submenu.addClass('hover');
@@ -315,150 +274,19 @@ angular.module('webcorp.ui.menu',[])
 							submenu.find('.submenu').addClass('outOfBounds').css('top', position);
 						}
 					},50);
-					$log.log('sub menu hover end');
-				}, function() {
-					var submenu = $(this);
+				};
+				$scope.submenu_leave=function($event){
+					//$log.log('submenu leave');
+					var submenu = $($event.currentTarget);
 					closingMenu = setTimeout(function(){
 						submenu.removeClass('hover');
 					},250);
-				});
-			
-				$('ul.submenu').on('mouseenter', function(){
-					clearTimeout(openingMenu);
-				});
-			
-				//media queries - depends of enquire.js
-				/*global enquire*/
-				enquire.register('screen and (max-width: 1200px)', {
-					match : function() {
-						if( $('#main').hasClass('helpOpen')) {
-							$('.toolbarBox a.btn-help').trigger('click');
-						}
-					},
-					unmatch : function() {
-			
-					}
-				});
-				enquire.register('screen and (max-width: 768px)', {
-					match : function() {
-			
-						$('body.page-sidebar').addClass('page-sidebar-closed');
-					},
-					unmatch : function() {
-						$('body.page-sidebar').removeClass('page-sidebar-closed');
-					}
-				});
-				enquire.register('screen and (max-width: 480px)', {
-					match : function() {
-						$('body').addClass('mobile-nav');
-						mobileNav();
-					},
-					unmatch : function() {
-						$('body').removeClass('mobile-nav');
-						removeMobileNav();
-					}
-				});
-			
-				//bootstrap components init
-				$('.dropdown-toggle').dropdown();
-				$('.label-tooltip, .help-tooltip').tooltip();
-				$('#error-modal').modal('show');
-			
-				//init footer
-				animateFooter();
-			
-				// go on top of the page
-				$('#go-top').on('click',function() {
-					$('html, body').animate({ scrollTop: 0 }, 'slow');
-					return false;
-				});
-			
+				};
 				
-				$(window).scroll(function() {
-					if(timer) {
-						window.clearTimeout(timer);
-					}
-					timer = window.setTimeout(function() {
-						animateGoTop();
-						animateFooter();
-					}, 100);
-				});
-			
-				// search with nav sidebar closed
-				$(document).on('click', '.page-sidebar-closed .searchtab' ,function() {
-					$(this).addClass('search-expanded');
-					$(this).find('#bo_query').focus();
-				});
-			
-				$('.page-sidebar-closed').click(function() {
-					$('.searchtab').removeClass('search-expanded');
-				});
-			
-				$('#header_search button').on('click', function(e){
-					e.stopPropagation();
-				});
-			
-				//erase button search input
-				if ($('#bo_query').val() !== '') {
-					$('.clear_search').removeClass('hide');
-				}
-			
-				$('.clear_search').on('click', function(e){
-					e.stopPropagation();
-					e.preventDefault();
-					var id = $(this).closest('form').attr('id');
-					$('#'+id+' #bo_query').val('').focus();
-					$('#'+id+' .clear_search').addClass('hide');
-				});
-				$('#bo_query').on('keydown', function(){
-					if ($('#bo_query').val() !== ''){
-						$('.clear_search').removeClass('hide');
-					}
-				});
-			
-				//search with nav sidebar opened
-				$('.page-sidebar').click(function() {
-					$('#header_search .form-group').removeClass('focus-search');
-				});
-			
-				$('#header_search #bo_query').on('click', function(e){
-					e.stopPropagation();
-					e.preventDefault();
-					if($('body').hasClass('mobile-nav')){
-						return false;
-					}
-					$('#header_search .form-group').addClass('focus-search');
-				});
-			
-				//select list for search type
-				$('#header_search_options').on('click','li a', function(e){
-					e.preventDefault();
-					$('#header_search_options .search-option').removeClass('active');
-					$(this).closest('li').addClass('active');
-					$('#bo_search_type').val($(this).data('value'));
-					$('#search_type_icon').removeAttr("class").addClass($(this).data('icon'));
-					$('#bo_query').attr("placeholder",$(this).data('placeholder'));
-					$('#bo_query').focus();
-				});
-			
-				// reset form
-				/* global header_confirm_reset, body_confirm_reset, left_button_confirm_reset, right_button_confirm_reset */
-				$(".reset_ready").click(function () {
-					var href = $(this).attr('href');
-					confirm_modal( header_confirm_reset, body_confirm_reset, left_button_confirm_reset, right_button_confirm_reset,
-						function () {
-							window.location.href = href + '&keep_data=1';
-						},
-						function () {
-							window.location.href = href + '&keep_data=0';
-					});
-					return false;
-				});
-			
-				//scroll_if_anchor(window.location.hash);
-				$("body").on("click", "a.anchor", scroll_if_anchor);
-				$log.log('executed');
-			}
+				$scope.submenu_enter=function($event){
+					clearTimeout(openingMenu);
+				};
+			};
 			
 			return {
 				restrict:'E',
@@ -467,49 +295,19 @@ angular.module('webcorp.ui.menu',[])
 						return $config.get('TemplateRoot','directives/templates/')+'menus.tpl.html';
 					},
 				scope:{
-					menus:'='
+					menus:'=',
+					position:'='
 				},
-				controller:function($log,$scope,$document){
-						angular.element($document).ready(function (){
-							
-							$log.log('doc ready');
-							//execute();
-						});
-						$scope.mouse=function(){
-								
-						};
-				},
+				controller:controller,
+
 				link:function($scope,$element,attrs,menuCtrl){
-					$log.log($element.html());
-					$element.closest('#maintab').hover(function(){
-						$log.log('internal li hover');
+					$scope.$watch('position',function(newValue,oldValue){
+						$log.log('position changing to ' + newValue)
+						initNav(newValue);
 					});
+					//initNav($scope.position);
+					
 				}
-				/*link:function($scope,$element,attrs,menuCtrl){
-					$templateRequest($config.get('TemplateRoot','directives/templates/')+'menus.tpl.html').then(function(template){
-						$log.log($scope.menus);
-						var elem=angular.element(template);
-						$log.log(elem);
-						var linker = $compile(elem);
-						linker($scope);
-						$log.log(elem);
-						$element.parent().append(elem);
-						
-						$log.log($(elem).html());
-						$(elem).find('li').hover(function(){
-							$log.log('internal li hover');
-						});
-						//execute();
-						
-						
-						
-					});
-					
-					
-					$log.log('linked');
-				}*/
-						
-						/*var template=angular.element('<ul class="menu"><li data-ng-repeat="menu in menus" class="maintab " ng-class="{has_submenu:menu.items}" data-submenu="{{$index}}"><a href="#" class="title" ng-if="menu.shouldRender()" ui-sref="{{menu.route}}"><i class="fa fa-{{menu.icon}}"></i><span>{{menu.label}}</span></a><ul data-ng-if="menu.items"  class="submenu" style="top: 0px;"><li data-ng-repeat="item in menu.items"><a href="#" class="title" ng-if="item.label.length>0 && item.shouldRender()" ui-sref="{{item.route}}">{{item.label}}</a></li></ul></li></ul>');*/
 
 			};
 		};	
@@ -589,6 +387,8 @@ angular.module('webcorp.ui.menu',[])
 			icon:  options.icon  || '',
 			position: options.position || 0,
 			route: options.route || '',
+			tooltip:options.tooltip || '',
+			tooltip_placement:options.tooltip_placement|| 'top',
 			shouldRender:shouldRender
 		};
 		if(options.isGroup)

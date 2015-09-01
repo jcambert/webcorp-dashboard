@@ -1,13 +1,20 @@
-<ul class="menu" test >
-	<li data-ng-repeat="menu in menus" class="maintab " ng-class="{has_submenu:menu.items}" data-submenu="{{$index}}" ng-mouseover="menu.items?mouse():''">
-		<a href="#" class="title" ng-if="menu.shouldRender()" ui-sref="{{menu.route}}">
-			<i class="fa fa-{{menu.icon}}"></i>
-			<span>{{menu.label}}</span>
-		</a>
-		<ul data-ng-if="menu.items"  class="submenu" style="top: 0px;">
-			<li data-ng-repeat="item in menu.items">
-				<a href="#" class="title" ng-if="item.label!='' && item.shouldRender()" ui-sref="{{item.route}}">{{item.label}}</a>
+<div class="bootstrap">
+	<nav id="nav-sidebar" role="navigation">
+		<ul class="menu" test >
+			<li data-ng-repeat="menu in menus" class="maintab " ng-class="{has_submenu:menu.items}" data-submenu="{{$index}}" ng-mouseover="menu.items?submenu_hover($event):''" ng-mouseleave="menu.items?submenu_leave($event):''" tooltip="{{menu.tooltip}}" tooltip-placement="{{menu.tooltip_placement}}">
+				<a href="#" class="title" ng-if="menu.shouldRender()" ui-sref="{{menu.route}}">
+					<i class="fa fa-{{menu.icon}}"></i>
+					<span>{{menu.label}}</span>
+				</a>
+				<ul data-ng-if="menu.items"  class="submenu" style="top: 0px;" ng.data-ng-mouseenter="submenu_enter($event)">
+					<li data-ng-repeat="item in menu.items">
+						<a href="#" class="title" ng-if="item.label!='' && item.shouldRender()" ui-sref="{{item.route}}">{{item.label}}</a>
+					</li>
+				</ul>
 			</li>
 		</ul>
-	</li>
-</ul>
+		<span class="menu-collapse">
+			<i class="icon-align-justify icon-rotate-90"></i>
+		</span>
+	</nav>
+</div>
