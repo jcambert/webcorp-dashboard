@@ -25,7 +25,7 @@ dashboard.controller('testctrl',['$scope','$log','$menus',function($scope,$log,$
 	
 	
 	$scope.menus=$menus.menus();
-	$scope.menuPosition='top';
+	$scope.menuPosition='side';
 	$scope.toggleMenuPosition=function(){
 		$scope.menuPosition=$scope.menuPosition=='top'?'side':'top';
 	}

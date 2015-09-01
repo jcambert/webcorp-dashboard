@@ -53,6 +53,7 @@ angular.module('webcorp.ui.menu',['webcorp.core','ui.bootstrap'])
 			
 			function navSidebar(){
 				$log.log('init navSidebar');
+				
 				var sidebar = $('#nav-sidebar');
 				sidebar.off();
 				$('.expanded').removeClass('expanded');

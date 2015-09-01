@@ -42,6 +42,44 @@
 		};
 	}])
 	
+	.directive('webcorpPageHead',['$config',function($config){
+		return{
+			restrict:'E',
+			replace:true,
+			transclude:true,
+			templateUrl:function(elem,attrs){
+				return $config.get('TemplateRoot','directives/templates/')+'pagehead.tpl.html';
+			},
+			scope:{
+				title:'=',
+				has_breadcrumb:'='
+			},
+			link:function($scope,$element,attrs){
+				alert(angular.isDefined(attrs.breadcrumb));
+				$scope.has_breadcrumb=angular.isDefined(attrs.breadcrumb);
+			}
+		};
+	}])
+	.directive('webcorpPageHeadToolbar',['$config',function($config){
+		return{
+			restrict:'E',
+			replace:true,
+			transclude:true,
+			templateUrl:function(elem,attrs){
+				return $config.get('TemplateRoot','directives/templates/')+'pageheadtoolbar.tpl.html';
+			}
+		};
+	}])
+	.directive('webcorpPage',['$config',function($config){
+		return{
+			restrict:'E',
+			replace:true,
+			transclude:true,
+			templateUrl:function(elem,attrs){
+				return $config.get('TemplateRoot','directives/templates/')+'page.tpl.html';
+			}
+		};
+	}])
 	.directive('webcorpFooter',['$config',function($config){
 		return{
 			restrict:'E',
