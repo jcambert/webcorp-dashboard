@@ -1,7 +1,7 @@
 'use strict';
 var wc = window.wc = {};
 var webcorp = window.webcorp = wc;
-var _=require('lodash');
+//var _=require('lodash');
 webcorp.namespace = function (namespaceString) {
     var parts = namespaceString.split('.'), parent = webcorp, i;
 

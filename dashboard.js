@@ -3,7 +3,7 @@
 'use strict';
 (function(angular){
 	 
-var dashboard=angular.module('webcorp.dashboard',['webcorp.core','webcorp.ui.menu','webcorp.ui.header']);
+var dashboard=angular.module('webcorp.dashboard',['webcorp.core','webcorp.ui.menu','webcorp.ui.header','webcorp.ui.widget']);
 dashboard.config(['$logProvider',function($log){
 	$log.debugEnabled(false);
 	console.log('Application configurated');

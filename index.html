@@ -13,6 +13,7 @@
 		<script src="bower_components/webcorp-core/dist/webcorp-core.js"></script>
 		
 		<script src="menu.js"></script>
+		<script src="widget.js"></script>
 		<script src="content.js"></script>
 		<script src="dashboard.js"></script>
 		
@@ -20,7 +21,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="dashboard.css">
 	</head>
-	<body ng-controller="testctrl">
+	<body ng-controller="testctrl" class="page-sidebar">
 		<webcorp-header></webcorp-header>
 		<webcorp-main>
 			<webcorp-menu data-menus="menus" data-position="menuPosition"></webcorp-menu>
@@ -45,7 +46,13 @@
 					</webcorp-page-head-toolbar>
 				</webcorp-page-head>
 				<webcorp-page>
-					<button ng-click="toggleMenuPosition()">click</button>
+					<webcorp-widget >
+						<webcorp-widget-head title="test" icon="arrows">
+							<webcorp-widget-head-action id="config" icon="refresh" tooltip="Confugurer"></webcorp-widget-head-action>
+						</webcorp-widget-head>
+						<button ng-click="toggleMenuPosition()">click</button>
+					</webcorp-widget>
+					
 				</webcorp-page>
 				
 			</webcorp-content>

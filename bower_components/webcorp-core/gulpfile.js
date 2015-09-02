@@ -9,7 +9,7 @@ var src=['./src/webcorp.js','./src/locationService.js','./src/configService.js',
 var js='webcorp-core.js';
 var min='webcorp-core.min.js';
 var dest='./dist';
-gulp.task('dist', function () {
+gulp.task('default', function () {
     gulp.src(src) // path to your files
     .pipe(concat(js))  // concat and name it "concat.js"
     .pipe(gulp.dest(dest));

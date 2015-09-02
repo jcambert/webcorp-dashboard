@@ -18,11 +18,11 @@
     "lodash": "~3.9.3"
   },
   "ignore": [],
-  "_release": "7f2fd3230b",
+  "_release": "f46e5a3d33",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "7f2fd3230bba1f847f7df5bc4bf455623cacf7f2"
+    "commit": "f46e5a3d33e696a68642f199e7343e9da8ba078c"
   },
   "_source": "git://github.com/jcambert/webcorp-core.git",
   "_target": "*",

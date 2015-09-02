@@ -46,7 +46,7 @@ angular.module('webcorp.ui.menu',['webcorp.core','ui.bootstrap'])
 	      return (pos ? separator : '') + letter.toLowerCase();
 	    });
 	  }
-	this.$get = ['$log','$document', '$interpolate','$compile','$templateRequest','$menus','$config',function($log,$document,$interpolate,$compile,$templateRequest,$menus,$config){
+	this.$get = ['$log','$document', '$interpolate','$compile','$templateRequest','$menus','$config','$template',function($log,$document,$interpolate,$compile,$templateRequest,$menus,$config,$template){
 		return function $menu(type,options){
 			options = angular.extend({}, defaultOptions, globalOptions, options);
 
@@ -221,7 +221,6 @@ angular.module('webcorp.ui.menu',['webcorp.core','ui.bootstrap'])
 		
 			//init main navigation
 			function initNav(position){
-				alert(position);
 				if ( (position && position==='side') || $('body').hasClass('page-sidebar')){
 					navSidebar();
 				}
@@ -293,7 +292,8 @@ angular.module('webcorp.ui.menu',['webcorp.core','ui.bootstrap'])
 				restrict:'E',
 				replace:true,
 				templateUrl:function(elem,attrs){
-						return $config.get('TemplateRoot','directives/templates/')+'menus.tpl.html';
+						//return $config.get('TemplateRoot','directives/templates/')+'menus.tpl.html';
+						return $template.get('menus');
 					},
 				scope:{
 					menus:'=',
