@@ -7,7 +7,13 @@
 			restrict:'E',
 			replace:true,
 			transclude:true,
-			templateUrl:function(){return $template.get('widget');}
+			scope:{
+				
+			},
+			templateUrl:function(){return $template.get('widget');},
+			link:function($scope,$element,attrs){
+				if(angular.isDefined(attrs.wId))$scope.id=attrs.wId;
+			}
 		};
 	}])
 	
@@ -16,49 +22,35 @@
 			restrict:'E',
 			replace:true,
 			transclude:true,
-			scope:{
-				icon:'=',
-				title:'='
-			},
 			controller:['$scope',function($scope){
-				$scope.actions=[];
-				this.addAction=function(id,options){
-					$log.log('adding widget head action:'+id);
-					var tmp={
-						id:id,
-						title:options.title || '',
-						tooltip:options.tooltip || '',
-						icon:options.icon || ''
-					};
-					$scope.actions.push(tmp);
-					$log.log('added widget head action:'+id);
-					
-				};
-				$scope.launchAction=function(atl){
-					$log.log('Want launching action:'+atl);
-				};
+				
 			}],
 			templateUrl:function(){return $template.get('widgethead');},
 			link:function($scope,$element,attrs){
 				$log.log('linking head');
-				if(angular.isDefined(attrs.icon))$scope.icon=attrs.icon;
-				if(angular.isDefined(attrs.title))$scope.title=attrs.title;
+				if(angular.isDefined(attrs.wIcon))$scope.icon=attrs.wIcon;
+				if(angular.isDefined(attrs.wTitle))$scope.title=attrs.wTitle;
 				$log.log('linked head');
+				
 			}
 		};
 	}])
 	
-	.directive('webcorpWidgetHeadAction',['$log',function($log){
+	.directive('webcorpWidgetHeadAction',['$log','$compile','$template',function($log,$compile,$template){
 		return{
 			restrict:'E',
-			
 			require:'^webcorpWidgetHead',
-			link:function($scope,$element,attrs,parentCtrl){
-				$log.log('linking head action');
+			replace:true,
+			scope:{
+				onClick:'&',
+			},
+			templateUrl:$template.get('widgetHeadAction'),
+			controller:function($scope){
 				
-				//$log.log('Add Widget Head ACtion:'+attrs.id)
-				parentCtrl.addAction(attrs.id,{icon:attrs.icon,title:attrs.title,tooltip:attrs.tooltip});
-				$log.log('linked head action');
+			},
+			link:function($scope,$element,attrs){
+				if(angular.isDefined(attrs.wIcon))$scope.icon=attrs.wIcon;
+				$compile($element.contents())($scope.$new());
 			}
 		};
 	}])

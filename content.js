@@ -46,7 +46,7 @@
 		return{
 			restrict:'E',
 			replace:true,
-			transclude:true,
+			//transclude:true,
 			templateUrl:function(elem,attrs){
 				return $config.get('TemplateRoot','directives/templates/')+'pagehead.tpl.html';
 			},
@@ -55,7 +55,7 @@
 				has_breadcrumb:'='
 			},
 			link:function($scope,$element,attrs){
-				alert(angular.isDefined(attrs.breadcrumb));
+				//alert(angular.isDefined(attrs.breadcrumb));
 				$scope.has_breadcrumb=angular.isDefined(attrs.breadcrumb);
 			}
 		};
@@ -64,7 +64,7 @@
 		return{
 			restrict:'E',
 			replace:true,
-			transclude:true,
+			//transclude:true,
 			templateUrl:function(elem,attrs){
 				return $config.get('TemplateRoot','directives/templates/')+'pageheadtoolbar.tpl.html';
 			}
@@ -74,7 +74,7 @@
 		return{
 			restrict:'E',
 			replace:true,
-			transclude:true,
+			//transclude:true,
 			templateUrl:function(elem,attrs){
 				return $config.get('TemplateRoot','directives/templates/')+'page.tpl.html';
 			}
@@ -84,7 +84,7 @@
 		return{
 			restrict:'E',
 			replace:true,
-			transclude:true,
+			//transclude:true,
 			templateUrl:function(elem,attrs){
 				return $config.get('TemplateRoot','directives/templates/')+'footer.tpl.html';
 			}

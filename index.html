@@ -6,6 +6,8 @@
 		<script src="bower_components/jquery/dist/jquery.js"></script>
 		<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="bower_components/angular/angular.js"></script>
+		<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+		
 		<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
 		<script src="bower_components/lodash/lodash.js"></script>
 		<script src="bower_components/enquire/dist/enquire.js"></script>
@@ -22,42 +24,12 @@
 		<link rel="stylesheet" href="dashboard.css">
 	</head>
 	<body ng-controller="testctrl" class="page-sidebar">
+		
 		<webcorp-header></webcorp-header>
 		<webcorp-main>
 			<webcorp-menu data-menus="menus" data-position="menuPosition"></webcorp-menu>
-			<webcorp-content>
-				<webcorp-page-head title="'Titre test'" breadcrumb>
-					<webcorp-page-head-toolbar>
-						<a href="#" class="toolbar_btn dropdown-toolbar navbar-toggle" data-toggle="collapse" data-target="#toolbar-nav"><i class="process-icon-dropdown"></i><div>Menu</div></a>
-						<ul id="toolbar-nav" class="nav nav-pills pull-right collapse navbar-collapse">
-																	<li>
-								<a id="page-header-desc-configuration-switch_demo" class="toolbar_btn  pointer" title="" data-toggle="tooltip" data-placement="bottom" data-original-title="Ce mode vous permet de découvrir le fonctionnement du tableau de bord grâce à des chiffres fictifs.">
-									<i class="process-icon-toggle-on"></i>
-									<div>Mode démo</div>
-								</a>
-							</li>
-																																					<li>
-								<a class="toolbar_btn btn-help" href="http://help.prestashop.com/fr/doc/AdminDashboard?version=1.6.1.1&amp;country=fr" title="Aide">
-									<i class="process-icon-help"></i>
-									<div>Aide</div>
-								</a>
-							</li>
-						</ul>
-					</webcorp-page-head-toolbar>
-				</webcorp-page-head>
-				<webcorp-page>
-					<webcorp-widget >
-						<webcorp-widget-head title="test" icon="arrows">
-							<webcorp-widget-head-action id="config" icon="refresh" tooltip="Confugurer"></webcorp-widget-head-action>
-						</webcorp-widget-head>
-						<button ng-click="toggleMenuPosition()">click</button>
-					</webcorp-widget>
-					
-				</webcorp-page>
-				
-			</webcorp-content>
+			<webcorp-content></webcorp-content>
 		</webcorp-main>
-		
 		<webcorp-footer></webcorp-footer>	
 	</body>
 </html>

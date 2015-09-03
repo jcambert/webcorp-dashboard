@@ -1,10 +1,5 @@
-<div class="panel-heading" ng-transclude>
+<div class="panel-heading"  >
 	<i  ng-if="icon" class="fa fa-{{icon}}"></i>
 	{{title}}
-	{{actions}}
-	<span class="panel-heading-action" ng-if="actions">
-		<a data-ng-repeat="action in actions" class="list-toolbar-btn" href="#" ng-click="launchAction(action)" title="{{title}}" tooltip="{{tooltip}}">
-			<i ng-if="action.icon" class="{{action.icon}}"></i>
-		</a>
-	</span>
+	<span class="panel-heading-action" ng-transclude ></span>
 </div>

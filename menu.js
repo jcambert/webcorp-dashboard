@@ -394,22 +394,28 @@ angular.module('webcorp.ui.menu',['webcorp.core','ui.bootstrap'])
 		};
 		if(options.isGroup)
 			result.items=[];
+		$log.log(result);
 		return result;
 	}
 	
 	self.add = function(groupId,itemId,options){
-		//$log.log('****************************************' );
-		//$log.log('Try Adding Menu:'+itemId + ' to ' + groupId);
-		if(exist(itemId))return self;
+		$log.log('****************************************' );
+		$log.log('Try Adding Menu:'+itemId + ' to ' + groupId);
 		
-		options = options || {};
+		if($.isArray(groupId)){
+			_.forEach(groupId,function(m){self.add(m.groupId,m.itemId,m.options);});
+		}else{
+			if( exist(itemId) )return self;
+			
+			options = options || {};
+			
+			
+			var group=(groupId!=null?find(groupId).items:menus);
+	
+			group.push( builder(itemId,options) );
+			$log.log('Menus '+ itemId +' Added');
+		}
 		
-		
-		var group=(groupId!=null?find(groupId).items:menus);
-
-		group.push( builder(itemId,options) );
-
-		//$log.log('Menus Add');
 		//$log.log(menus);
 		return self;
 	};
