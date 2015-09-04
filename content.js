@@ -2,13 +2,13 @@
 (function(angular){
 	angular.module('webcorp.ui.header',['webcorp.core','ui.bootstrap'])
 	
-	.directive('webcorpHeader',['$config',function($config){
+	.directive('webcorpHeader',['$config','DefaultTemplateRoot',function($config,DefaultTemplateRoot){
 		return{
 			restrict:'E',
 			replace:true,
 			transclude:true,
 			templateUrl:function(elem,attrs){
-				return $config.get('TemplateRoot','directives/templates/')+'header.tpl.html';
+				return $config.get('TemplateRoot',DefaultTemplateRoot)+'header.tpl.html';
 			}
 		};
 	}])
@@ -19,74 +19,77 @@
 			require:'^header'
 		};
 	}])
-	
-	.directive('webcorpMain',['$config',function($config){
+
+	.directive('webcorpMain',['$config','DefaultTemplateRoot',function($config,DefaultTemplateRoot){
 		return{
 			restrict:'E',
 			replace:true,
 			transclude:true,
 			templateUrl:function(elem,attrs){
-				return $config.get('TemplateRoot','directives/templates/')+'main.tpl.html';
+				return $config.get('TemplateRoot',DefaultTemplateRoot)+'main.tpl.html';
 			}
 		};
 	}])
 	
-	.directive('webcorpContent',['$config',function($config){
+	.directive('webcorpContent',['$config','DefaultTemplateRoot',function($config,DefaultTemplateRoot){
 		return{
 			restrict:'E',
 			replace:true,
 			transclude:true,
 			templateUrl:function(elem,attrs){
-				return $config.get('TemplateRoot','directives/templates/')+'content.tpl.html';
+				return $config.get('TemplateRoot',DefaultTemplateRoot)+'content.tpl.html';
 			}
 		};
 	}])
 	
-	.directive('webcorpPageHead',['$config',function($config){
+	.directive('webcorpPageHead',['$compile','$config','DefaultTemplateRoot',function($compile,$config,DefaultTemplateRoot){
 		return{
 			restrict:'E',
 			replace:true,
-			//transclude:true,
+			transclude:true,
 			templateUrl:function(elem,attrs){
-				return $config.get('TemplateRoot','directives/templates/')+'pagehead.tpl.html';
+				return  $config.get('TemplateRoot',DefaultTemplateRoot)+'pagehead.tpl.html';
 			},
 			scope:{
 				title:'=',
 				has_breadcrumb:'='
 			},
 			link:function($scope,$element,attrs){
-				//alert(angular.isDefined(attrs.breadcrumb));
+				
 				$scope.has_breadcrumb=angular.isDefined(attrs.breadcrumb);
+				
+				//alert($config.get('TemplateRoot',DefaultTemplateRoot)+'pagehead.tpl.html');
 			}
 		};
 	}])
-	.directive('webcorpPageHeadToolbar',['$config',function($config){
+	.directive('webcorpPageHeadToolbar',['$config','DefaultTemplateRoot',function($config,DefaultTemplateRoot){
 		return{
 			restrict:'E',
 			replace:true,
 			//transclude:true,
 			templateUrl:function(elem,attrs){
-				return $config.get('TemplateRoot','directives/templates/')+'pageheadtoolbar.tpl.html';
+				return $config.get('TemplateRoot',DefaultTemplateRoot)+'pageheadtoolbar.tpl.html';
 			}
+			
 		};
 	}])
-	.directive('webcorpPage',['$config',function($config){
+	.directive('webcorpPage',['$config','DefaultTemplateRoot',function($config,DefaultTemplateRoot){
 		return{
 			restrict:'E',
 			replace:true,
 			//transclude:true,
 			templateUrl:function(elem,attrs){
-				return $config.get('TemplateRoot','directives/templates/')+'page.tpl.html';
+				return $config.get('TemplateRoot',DefaultTemplateRoot)+'page.tpl.html';
 			}
 		};
 	}])
-	.directive('webcorpFooter',['$config',function($config){
+	.directive('webcorpFooter',['$config','DefaultTemplateRoot',function($config,DefaultTemplateRoot){
 		return{
 			restrict:'E',
 			replace:true,
-			//transclude:true,
+			transclude:true,
 			templateUrl:function(elem,attrs){
-				return $config.get('TemplateRoot','directives/templates/')+'footer.tpl.html';
+				return $config.get('TemplateRoot',DefaultTemplateRoot)+'footer.tpl.html';
 			}
 		};
 	}])

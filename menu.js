@@ -343,30 +343,47 @@ angular.module('webcorp.ui.menu',['webcorp.core','ui.bootstrap'])
 	 }
 	 
 	 var findMenu = function(menus,id){
-			//$log.log('----- FIND INDEX ------');  
-		 	//$log.log('findIndex menus:'+id);$log.log(menus);
-			 if(menus.length==0)return '';
+			$log.log('----- FINDMENU START ------');  
+		 	$log.log('try finding menu with id:'+id + ' in menu ');
+			 console.dir(menus);
+			 if(menus.length==0){
+				 $log.log('no menu in tabs');
+			 	 $log.log('----- FINDMENU END ------');  
+				 return '';
+			 }
 			 for(var i=0;i<menus.length;i++){
 			 	var menu=menus[i];
-				//$log.log('current menu:'+i);
-			 	//$log.log(menus[i]);
-			 	//$log.log('findIndex:'+menu.id+':'+id);
+				$log.log('current menu:'+menu.id);
+			 	$log.log(menus[i]);
+			 	$log.log('findIndex:'+menu.id+':'+id);
 				var result= (menu.id==id);
 				//$log.log('result:'+result);
-				if(result) return menu;
-				if(Array.isArray(menu.items)){
-					// $log.log('search in subitems');
-				 	return findMenu(menu.items);
+				if(result){
+					$log.log('Find menu with id'+id);
+					console.dir(menu);
+					 $log.log('----- FINDMENU END ------');
+					return menu;	
+				} 
+				if(Array.isArray(menu.items,id)){
+					$log.log('search in subitems');
+				 	return findMenu(menu.items,id);
 				 }else{
-					 //$log.log(menu);
-					 //$log.log('menu has no subitems');
+					 $log.log('current menu ' + menu.id + ' does not match with '+id);
 				 }
 				 
 			 }
+			 $log.log('no menu finded');
+			 $log.log('----- FINDMENU END ------');  
 			 return '';
 	 }	 
 	 var find = function(id){
-		 return findMenu(menus,id);
+		 var result= findMenu(menus,id);
+		 console.log('//// FIND START////');
+		 console.log('Try to find menu:'+id);
+		 console.log('result:');
+		 console.dir(result);
+		 console.log('//// FIND END////');
+		 return result;
 	 };
 	 
 	 // A private function for rendering decision
@@ -399,7 +416,7 @@ angular.module('webcorp.ui.menu',['webcorp.core','ui.bootstrap'])
 	}
 	
 	self.add = function(groupId,itemId,options){
-		$log.log('****************************************' );
+		$log.log('********** ADD START******************************' );
 		$log.log('Try Adding Menu:'+itemId + ' to ' + groupId);
 		
 		if($.isArray(groupId)){
@@ -414,6 +431,7 @@ angular.module('webcorp.ui.menu',['webcorp.core','ui.bootstrap'])
 	
 			group.push( builder(itemId,options) );
 			$log.log('Menus '+ itemId +' Added');
+			$log.log('********* ADD END*******************************' );
 		}
 		
 		//$log.log(menus);
