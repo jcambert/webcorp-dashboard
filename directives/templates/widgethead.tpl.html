@@ -1,5 +1,6 @@
 <div class="panel-heading"  >
 	<i  ng-if="icon" class="fa fa-{{icon}}"></i>
 	{{title}}
+	<span ng-if="badge" class="badge">{{badge}}</span>
 	<span class="panel-heading-action" ng-transclude ></span>
 </div>

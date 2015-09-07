@@ -1,0 +1,16 @@
+<thead>
+	<tr class="nodrag nodrop">
+		<th ng-repeat="column in columns" class="center fixed-width-xs">
+			<span class="title_box active">
+				{{column.title}}
+				<a href="#" ng-if="column.sortable" class="active"  ng-click="sortByDesc('reference')">
+					<i class="icon-caret-down"/>
+				</a>
+				<a href="#" ng-if="column.sortable" ng-click="sortByAsc('reference')">
+					<i class="icon-caret-up"/>
+				</a>
+			</span>
+		</th>
+		
+	</tr>
+</thead>

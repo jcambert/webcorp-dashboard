@@ -75,6 +75,22 @@ webcorp.define('webcorp.ConfigService',function(){
 
     return self;
 });
+webcorp.define('webcorp.DependencyService',function(){
+	var self={};
+	self.dependencies=[];
+	
+	self.add=function(dep){
+        if(Array.isArray(dep))
+            self.dependencies=_.union(self.dependencies || [] , dep);
+        else
+		  self.dependencies.push(dep);
+	}
+	
+	return self;
+	
+});
+
+webcorp.dependencies= new webcorp.DependencyService ();
 angular.module('webcorp.core',[])
 .factory('$config', function () {
     return new webcorp.ConfigService();
@@ -87,4 +103,32 @@ angular.module('webcorp.core',[])
         return $config.get('TemplateRoot','directives/templates/')+name+'.tpl.html';
     }
 }])
+.provider('$wview',function $wviewProvider(){
+	
+	var $defaultPartialsRoot='partials/';
+	var $defaultHeadSuffix='head';
+	var $defaultContentSuffix='content';
+	this.setPartialsRoot=function(path){
+		$defaultPartialsRoot=path;
+	};
+	
+	this.setDefaultHeadSuffix=function(suffix){
+		$defaultHeadSuffix=suffix;
+	}
+	
+	this.setDefaultContentSuffix=function(suffix){
+		$defaultContentSuffix=suffix;
+	}
+	this.head=function(folder,view){
+		view=angular.isDefined(view)?folder+'/'+view:folder; 
+		return $defaultPartialsRoot + view.toLowerCase() + '.'+$defaultHeadSuffix+'.html';
+	};
+	this.content = function(folder,view){
+		view=angular.isDefined(view)?folder+'/'+view:folder; 
+		return $defaultPartialsRoot+ view.toLowerCase() + '.'+$defaultContentSuffix+'.html';
+	}
+	
+	this.$get=function(){return{};};
+
+})
 ;

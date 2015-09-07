@@ -1,10 +1,16 @@
 
-<div ng-controller="testWidgetCtrl">
+<div ng-controller="chiffrageCtrl">
 	<webcorp-widget w-id="testWidget"  >
-		<webcorp-widget-head w-title="Chiffrage" w-icon="arrows">
+		<webcorp-widget-head w-title="Chiffrage" w-icon="arrows" badge="chiffrages.length">
 			<webcorp-widget-head-action w-id="config" on-click="wconfig($event)" w-icon="check" w-tooltip="Configurer"></webcorp-widget-head-action>
 			<webcorp-widget-head-action w-id="refresh" on-click="wrefresh($event)" w-icon="refresh" w-tooltip="Refresh"></webcorp-widget-head-action>
 		</webcorp-widget-head>
-		<button ng-click="toggleMenuPosition()">click</button>
+		<div class="table-responsive-row clearfix">
+			<w-table w-source="datas" class="table order" >
+				
+			</w-table>
+		</div>
+	
+		
 	</webcorp-widget>
 </div>

@@ -1,6 +1,9 @@
 'use strict';
 (function(angular,$,_){
 
+Array.prototype.insert = function (index, item) {
+  this.splice(index, 0, item);
+};
 
 angular.module('webcorp.ui.menu',['webcorp.core','ui.bootstrap'])
 .service('Roles',['$log',function($log){
@@ -366,7 +369,8 @@ angular.module('webcorp.ui.menu',['webcorp.core','ui.bootstrap'])
 				} 
 				if(Array.isArray(menu.items,id)){
 					$log.log('search in subitems');
-				 	return findMenu(menu.items,id);
+				 	var res= findMenu(menu.items,id);
+					 if(res!='')return res;
 				 }else{
 					 $log.log('current menu ' + menu.id + ' does not match with '+id);
 				 }
@@ -403,7 +407,7 @@ angular.module('webcorp.ui.menu',['webcorp.core','ui.bootstrap'])
 			state: options.state || '',
 			class: options.class || '',
 			icon:  options.icon  || '',
-			position: options.position || 0,
+			position: options.position || -1,
 			route: options.route || '',
 			tooltip:options.tooltip || '',
 			tooltip_placement:options.tooltip_placement|| 'top',
@@ -429,7 +433,11 @@ angular.module('webcorp.ui.menu',['webcorp.core','ui.bootstrap'])
 			
 			var group=(groupId!=null?find(groupId).items:menus);
 	
-			group.push( builder(itemId,options) );
+			var building=builder(itemId,options)
+			if(building.position>-1)
+				group.push( building);
+			else
+				group.insert(building.position,building);
 			$log.log('Menus '+ itemId +' Added');
 			$log.log('********* ADD END*******************************' );
 		}

@@ -16,14 +16,19 @@
 		
 		<script src="menu.js"></script>
 		<script src="widget.js"></script>
+		<script src="table.js"></script>
 		<script src="content.js"></script>
+		<script src="chiffrage.js"></script>
 		<script src="dashboard.js"></script>
+		
 		
 		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<link rel="stylesheet" href="dashboard.css">
+		
+		
 	</head>
-	<body ng-controller="testctrl" class="page-sidebar">
+	<body ng-controller="dashboardctrl"  ng-class="{'page-sidebar':menuPosition=='side','page-topbar':menuPosition=='top'}">
 		
 		<webcorp-header></webcorp-header>
 		<webcorp-main>

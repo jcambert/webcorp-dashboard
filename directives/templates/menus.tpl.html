@@ -1,4 +1,5 @@
 <div class="bootstrap">
+	{{$menus.menus()}}
 	<nav id="nav-sidebar" role="navigation">
 		<ul class="menu" test >
 			<li data-ng-repeat="menu in menus" class="maintab " ng-class="{has_submenu:menu.items}" data-submenu="{{$index}}" ng-mouseover="menu.items?submenu_hover($event):''" ng-mouseleave="menu.items?submenu_leave($event):''" tooltip="{{menu.tooltip}}" tooltip-placement="{{menu.tooltip_placement}}">

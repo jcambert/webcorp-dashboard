@@ -5,7 +5,7 @@ gulp.task('compress_all', function() {
     .pipe(uglify())
     .pipe(gulp.dest('dist'));
 });
-var src=['./src/webcorp.js','./src/locationService.js','./src/configService.js','./src/webcorp.angular.js'];
+var src=['./src/webcorp.js','./src/locationService.js','./src/configService.js','./src/dependencyService.js','./src/webcorp.angular.js'];
 var js='webcorp-core.js';
 var min='webcorp-core.min.js';
 var dest='./dist';

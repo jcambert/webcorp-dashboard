@@ -1,38 +1,10 @@
 
 
-'use strict';
+
 (function(angular){
-	 
-var dashboard=angular.module('webcorp.dashboard',['ui.router', 'webcorp.core','webcorp.ui.menu','webcorp.ui.header','webcorp.ui.widget']);
-dashboard.provider('$wview',function $wviewProvider(){
-	
-	var $defaultPartialsRoot='partials/';
-	this.setPartialsRoot=function(path){
-		$defaultPartialsRoot=path;
-	};
-	this.head=function(folder,view){
-		view=angular.isDefined(view)?folder+'/'+view:folder; 
-		return $defaultPartialsRoot + view.toLowerCase() + '.head.html';
-	};
-	this.content = function(folder,view){
-		view=angular.isDefined(view)?folder+'/'+view:folder; 
-		return $defaultPartialsRoot+ view.toLowerCase() + '.content.html';
-	}
-	
-	this.$get=function(){return{};};
-	/*this.$get=function(){
-		
-		return {
-			head:function(view){
-				alert('toto');
-				return self.$defaultPartialsRoot + view.toLowerCase() + '.head.html';
-			},
-			content:function(view){
-				return self.$defaultPartialsRoot+ view.toLowerCase() + '.content.html';
-			}
-		}
-	}*/
-});
+'use strict';	 
+var dashboard=angular.module('webcorp.dashboard',_.union(webcorp.dependencies.dependencies || [],['ui.router', 'webcorp.core','webcorp.ui.menu','webcorp.ui.header','webcorp.ui.widget','webcorp.ui.table']));
+
 dashboard.config(['$logProvider','$stateProvider', '$urlRouterProvider','$wviewProvider',function($log,$stateProvider, $urlRouterProvider,$wview){
 	$log.debugEnabled(false);
 	console.dir($wview);
@@ -47,13 +19,13 @@ dashboard.config(['$logProvider','$stateProvider', '$urlRouterProvider','$wviewP
 		  'pagecontent':{templateUrl: function(){return $wview.content('dashboard');},controller:function(){}}
 	  }
     })
-	.state('chiffrage', {
+	/*.state('chiffrage', {
       url: '/chiffrage',
 	 views:{
 		  'pagehead':{templateUrl: function(){ return $wview.head('chiffrage','index');},controller:function(){}},
 		  'pagecontent':{templateUrl: function(){return $wview.content('chiffrage','index');},controller:function(){}}
 	  }
-    })
+    })*/
 	;
 	
 	console.log('Application configurated');
@@ -63,12 +35,24 @@ dashboard.value('DefaultTemplateRoot','directives/templates/');
 dashboard.value('DefaultPartialsRoot','partials');
 
 
-dashboard.run(['$rootScope', '$log','$state','$config','DefaultTemplateRoot','DefaultPartialsRoot',function($rootScope,$log,$state,$config,$defaultTplRoot,$defaultPartialsRoot){
+dashboard.run(['$rootScope', '$log','$state','$config','$menus','DefaultTemplateRoot','DefaultPartialsRoot',function($rootScope,$log,$state,$config,$menus,$defaultTplRoot,$defaultPartialsRoot){
 	
-	$log.log('Application running');
-	
+	$log.log('Application starting');
 	
 	$config.set('TemplateRoot',$defaultTplRoot);
+	
+	$rootScope.$menus=$menus;
+	
+	var menus=[
+		{groupId:null,itemId:'menu0',options:{position:0,label:'Accueil',route:'home',icon:'tachometer'}},
+		
+		
+		];
+	//$menus.add(null,'menu0',{label:'label0',route:'route_label0',icon:'tachometer'}).add(null,'menu1',{label:'label1',route:'route_label1',icon:'list-alt',isGroup:true,tooltip:'tooltip menu1'}).add('menu1','menu2',{label:'label2',route:'route_label2'}).add('menu1','menu3',{label:'label3',route:'route_label3'});
+	$rootScope.$menus.add(menus);
+	
+	$rootScope.menus=$menus.menus();
+	$rootScope.menuPosition='side';
 	
 	$rootScope.$on('$stateNotFound', 
 		function(event, unfoundState, fromState, fromParams){ 
@@ -87,44 +71,15 @@ dashboard.run(['$rootScope', '$log','$state','$config','DefaultTemplateRoot','De
 			console.log('******* STATE CHANGE SUCCESS ****************');
 			console.log('From:' + fromState.name + ' to '+ toState.name);
 		 })
-	//$config.set('TemplateRoot','directives/temp/');
+	
 	$state.go('home');
 	
 }]);
-/*
-dashboard.factory('$view',['$config','DefaultPartialsRoot',function($config,$defaultPartialsRoot){
-	var result={};
-	result.head=function(view){
-		return $config.get('PartialsRoot',$defaultPartialsRoot) + view.toLowerCase() + '.head.html';
-	};
-	result.content=function(view){
-		return $config.get('PartialsRoot',$defaultPartialsRoot) + view.toLowerCase() + '.content.html';
-	};
-	return result;
+
+dashboard.controller('dashboardctrl',['$scope','$log','$menus',function($scope,$log,$menus){
+
 	
-}]);*/
-
-
-
-dashboard.controller('testctrl',['$scope','$log','$menus',function($scope,$log,$menus){
-
-	var menus=[
-		{groupId:null,itemId:'menu0',options:{label:'Accueil',route:'home',icon:'tachometer'}},
-		{groupId:null,itemId:'menu1',options:{label:'Chiffrage',route:'chiffrage',icon:'eur',isGroup:true,tooltip:'Gestion des chiffrage'}},
-		{groupId:null,itemId:'menu2',options:{label:'Production',route:'production',icon:'eur',isGroup:true,tooltip:'Gestion de production'}},
-		{groupId:null,itemId:'menu3',options:{label:'Production',route:'production',icon:'eur',isGroup:true,tooltip:'Gestion de production'}},
-		
-		{groupId:'menu2',itemId:'menu10',options:{label:'Creer',route:'chiffrage'}},
-		
-		];
-	//$menus.add(null,'menu0',{label:'label0',route:'route_label0',icon:'tachometer'}).add(null,'menu1',{label:'label1',route:'route_label1',icon:'list-alt',isGroup:true,tooltip:'tooltip menu1'}).add('menu1','menu2',{label:'label2',route:'route_label2'}).add('menu1','menu3',{label:'label3',route:'route_label3'});
-	$menus.add(menus);
 	
-	$scope.menus=$menus.menus();
-	$scope.menuPosition='side';
-	$scope.toggleMenuPosition=function(){
-		$scope.menuPosition=$scope.menuPosition=='top'?'side':'top';
-	}
 	
 
 }]);
