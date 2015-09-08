@@ -23,11 +23,11 @@ chiffrage.config(['$logProvider','$stateProvider','$wviewProvider',function($log
 }]);
 
 chiffrage.controller('chiffrageCtrl',['$log', '$scope',function($log,$scope){
-	$scope.chiffrages=[];
+	/*$scope.chiffrages=[];
 	$scope.chiffrages.push({id:5});
 	$scope.chiffrages.push({id:10});
 	console.dir($scope.chiffrages);
-	
+	*/
 	var cs=[{
 			id:0,dp:4336,reference:'Cheminee',designation:'cheminee designation',indice:'',clientid:'Quatre Heurie',deviseur:'Ambert jc',
 			tarifs:
@@ -56,14 +56,38 @@ chiffrage.controller('chiffrageCtrl',['$log', '$scope',function($log,$scope){
 			}],		
 	}];
 	
-	var designationRenderer = function (row, columnfield, value, defaulthtml, columnproperties, rowdata) {
-	}
+	var designationRenderer = function (row, columnfield, value, defaulthtml, columnproperties, index) {
+		return '<td>'+ value +'</td>';
+	};
 	
+	var viewRenderer = function (row, columnfield, value, defaulthtml, columnproperties, index) {
+		return '<div class="btn-group pull-right"><a href="#" class="btn btn-default" title="Afficher"><i class="icon-search-plus"></i> Afficher</a></div>';
+	};
+	
+	var updateRender = function(row, columnfield, value, defaulthtml, columnproperties, index) {
+		return ['<div class="btn-group pull-right">',
+					'<a href="#" title="Modifier" class="edit btn btn-default">',
+						'<i class="icon-pencil"></i> Modifier',
+					'</a>',
+					'<button class="btn btn-default dropdown-toggle" data-toggle="dropdown">',
+						'<i class="icon-caret-down"></i>&nbsp;',
+					'</button>',
+					'<ul class="dropdown-menu">',
+						'<li>',
+							'<a href="" title="Supprimer" class="delete">',
+								'<i class="icon-trash"></i> Supprimer</a>',
+						'</li>',
+					'</ul>',
+				'</div>'].join('');
+	};
 	var source={
 		showhead:true,
+		allowSelection:true,
 		columns:[
-			{name:'reference',title:'Reference',sortable:true,filterable:true, type:'string'},
-			{name:'designation',title:'Designation',type:'string',width:'250px',cellrenderer:designationRenderer}
+			
+			{name:'reference',column:{title:'Reference',sortable:true,filterable:true, type:'string',clazz:'text-left', width:'250px'},cell:{clazz:'pointer text-left'}},
+			{name:'designation',column:{title:'Designation',type:'string',width:'250px'},cell:{clazz:'pointer',cellrenderer:designationRenderer}},
+			{name:'action',column:{title:'',type:'action',width:'250px',clazz:'actions'},cell:{clazz:'pointer',cellrenderer:updateRender}}
 			
 		],
 		source:cs

@@ -1,13 +1,11 @@
 <tbody>
-	<tr ng-repeat="line in lines" >
+	<!--<tr ng-repeat="line in lines" >
 		<td >{{line.reference}} </td>
 		<td >{{line.designation}} </td>
 		
-	</tr>	
+	</tr>	-->
 	<tr ng-repeat="line in lines" >
-		<td w-renderer index="$index" line="line"></td>
-		
-		
+		<td ng-repeat="column in columns" w-table-cell index="$index" line="line"></td>
 	</tr>
 	
 </tbody>

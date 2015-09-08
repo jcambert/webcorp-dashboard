@@ -1,16 +1,20 @@
 <thead>
 	<tr class="nodrag nodrop">
-		<th ng-repeat="column in columns" class="center fixed-width-xs">
+		<th ng-repeat="column in columns" class="{{column.column.clazz || ''}}">
 			<span class="title_box active">
-				{{column.title}}
-				<a href="#" ng-if="column.sortable" class="active"  ng-click="sortByDesc('reference')">
+				{{column.column.title}}
+				<a href="#" ng-if="column.column.sortable" class="active"  ng-click="sortByDesc('reference')">
 					<i class="icon-caret-down"/>
 				</a>
-				<a href="#" ng-if="column.sortable" ng-click="sortByAsc('reference')">
+				<a href="#" ng-if="column.column.sortable" ng-click="sortByAsc('reference')">
 					<i class="icon-caret-up"/>
 				</a>
 			</span>
 		</th>
+	</tr>
+	
+	<tr class="nodrag nodrop filter row_hover" ng-if="hasFilter()">
+		<th ng-repeat="column in columns" w-table-filter columns="columns" index="$index" ></th>
 		
 	</tr>
-</thead>
+</thead>	
