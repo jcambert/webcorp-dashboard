@@ -35,7 +35,7 @@ dashboard.value('DefaultTemplateRoot','directives/templates/');
 dashboard.value('DefaultPartialsRoot','partials');
 
 
-dashboard.run(['$rootScope', '$log','$state','$config','$menus','DefaultTemplateRoot','DefaultPartialsRoot',function($rootScope,$log,$state,$config,$menus,$defaultTplRoot,$defaultPartialsRoot){
+dashboard.run(['$rootScope', '$log','$state','$templateCache', '$config','$menus','DefaultTemplateRoot','DefaultPartialsRoot',function($rootScope,$log,$state,$templateCache,$config,$menus,$defaultTplRoot,$defaultPartialsRoot){
 	
 	$log.log('Application starting');
 	
@@ -70,7 +70,16 @@ dashboard.run(['$rootScope', '$log','$state','$config','$menus','DefaultTemplate
 		function(event, toState, toParams, fromState, fromParams){ 
 			console.log('******* STATE CHANGE SUCCESS ****************');
 			console.log('From:' + fromState.name + ' to '+ toState.name);
-		 })
+			
+			$log.log('Clear Cache for development');
+			$templateCache.removeAll();
+		 });
+	/* TODO REMOVE FOR PRODUCTION*/
+	 $rootScope.$on('$viewContentLoaded', 
+		 function() {
+			$log.log('Clear Cache for development');
+			$templateCache.removeAll();
+		});
 	
 	$state.go('home');
 	

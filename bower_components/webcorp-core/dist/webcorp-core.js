@@ -80,10 +80,7 @@ webcorp.define('webcorp.DependencyService',function(){
 	self.dependencies=[];
 	
 	self.add=function(dep){
-        if(Array.isArray(dep))
-            self.dependencies=_.union(self.dependencies || [] , dep);
-        else
-		  self.dependencies.push(dep);
+		self.dependencies.push(dep);
 	}
 	
 	return self;
@@ -98,10 +95,38 @@ angular.module('webcorp.core',[])
 .factory('locationService', function () {
     return new webcorp.LocationService ();
 })
-.service('$template',['$config',function($config){
-    this.get = function(name){
-        return $config.get('TemplateRoot','directives/templates/')+name+'.tpl.html';
-    }
+.service('$template',['$log', '$http','$templateCache','$q', '$config',function($log,$http,$templateCache,$q, $config){
+
+	var self=this;
+	self.get = function(name){
+		return $config.get('TemplateRoot','directives/templates/')+name+'.tpl.html';
+	};
+	self.load=function(name){
+		$log.log('Load template:'+name);
+		var tpl=$templateCache.get(this.get(name));
+		if(tpl){
+			$log.log('from cache')
+			$log.log(tpl);
+			return $q.when(tpl);	
+		}else{
+			$log.log('from http');
+			var deffered=$q.defer();
+			
+			$http.get(self.get(name),{cache:true})
+				.success(function(response){
+					$templateCache.put(self.get(name),response);
+					deffered.resolve(response);
+				})
+				.error(function(response){
+					deffered.reject(response);
+				})
+				;
+			
+			return deffered.promise;
+			
+		}
+		
+	}
 }])
 .provider('$wview',function $wviewProvider(){
 	

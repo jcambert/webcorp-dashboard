@@ -87,7 +87,7 @@
 		};
 	}]);
 	
-	table.directive('wTableCell',['$log','$template',function($log,$template){
+	table.directive('wTableCell',['$log','$compile','$template',function($log,$compile,$template){
 		return {
 			restrict:'A',
 			//replace:true,
@@ -111,9 +111,24 @@
 					var value=$scope.line[ tabledef.name];
 					var defaultHtml=angular.element('<td>'+value+'</td>');
 					
-					if(tabledef.cell.cellrenderer)
-						$element.append(tabledef.cell.cellrenderer($scope.line,tabledef.name,value,defaultHtml,tabledef,$scope.index));
-					else{
+					if(tabledef.cell.cellrenderer){
+						if(angular.isFunction(tabledef.cell.cellrenderer)){
+							var tpl=tabledef.cell.cellrenderer($scope.line,tabledef.name,value,defaultHtml,tabledef,$scope.index);
+							$compile(tpl)($scope);
+							$element.append(tpl);
+							
+						}else{
+							$template.load(tabledef.cell.cellrenderer).then(
+								function(tpl){
+									$compile(tpl)($scope);
+									$element.append(tpl);
+									
+								}, 
+								function(msg){
+									$log.error(msg);
+								});
+						}
+					}else{
 						if(tabledef.cell.clazz)defaultHtml.addClass(tabledef.cell.clazz);
 						//if(column.width)defaultHtml.css('width',column.width); => to header
 						$element.append(defaultHtml);
@@ -135,6 +150,7 @@
 			},
 			link:function($scope,$element,attrs,parentCtrl){
 				$log.log('---------- wTableFilter START LINK ------------------------');
+				
 				var tabledef=$scope.columns[$scope.index];
 				console.dir(tabledef);
 				if(tabledef.column.type=='action'){
