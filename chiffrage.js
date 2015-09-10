@@ -12,7 +12,7 @@ var chiffrage=angular.module('erp.chiffrage',['ui.router', 'webcorp.core','webco
 chiffrage.config(['$logProvider','$stateProvider','$wviewProvider',function($log,$stateProvider,$wview){
 	$stateProvider
     
-	
+
 	.state('chiffrage', {
 	  abstract:true,
       url: '/chiffrage'
@@ -39,9 +39,10 @@ chiffrage.config(['$logProvider','$stateProvider','$wviewProvider',function($log
 		url:'/brunissage',
 		 views:{
 		  'pagehead':{templateUrl: function(){ return $wview.head('chiffrage','index');},controller:function(){}},
-		  'pagecontent':{templateUrl: function(){return $wview.content('chiffrage','view');},controller:function(){}}
+		  'pagecontent':{templateUrl: function(){return $wview.content('chiffrage.brunissage','index');},controller:function(){}}
 	  }
 	})
+	
 	/*.state('chiffrage.edit',{
 		url:'/chiffrage/:id/edit',
 	})*/
@@ -49,11 +50,7 @@ chiffrage.config(['$logProvider','$stateProvider','$wviewProvider',function($log
 }]);
 
 chiffrage.controller('chiffrageCtrl',['$log', '$scope',function($log,$scope){
-	/*$scope.chiffrages=[];
-	$scope.chiffrages.push({id:5});
-	$scope.chiffrages.push({id:10});
-	console.dir($scope.chiffrages);
-	*/
+	
 	var cs=[{
 			id:0,dp:4336,reference:'Cheminee',designation:'cheminee designation',indice:'',clientid:'Quatre Heurie',deviseur:'Ambert jc',
 			tarifs:
@@ -120,6 +117,10 @@ chiffrage.controller('chiffrageCtrl',['$log', '$scope',function($log,$scope){
 	}
 	
 	$scope.datas=source;
+}]);
+
+chiffrage.controller('brunissageCtrl',[function(){
+	
 }]);
 
 chiffrage.run(['$rootScope', '$log','$menus',function($rootScope,$log,$menus){

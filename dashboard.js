@@ -12,8 +12,10 @@ dashboard.config(['$logProvider','$stateProvider', '$urlRouterProvider','$wviewP
 	console.dir(dashboard);
 	$urlRouterProvider.otherwise("/");
 	$stateProvider
+	
     .state('home', {
       url: '/',
+	  
 	 views:{
 		  'pagehead':{templateUrl: function(){ return $wview.head('dashboard');},controller:function(){}},
 		  'pagecontent':{templateUrl: function(){return $wview.content('dashboard');},controller:function(){}}

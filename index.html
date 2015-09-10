@@ -29,13 +29,14 @@
 		
 	</head>
 	<body ng-controller="dashboardctrl"  ng-class="{'page-sidebar':menuPosition=='side','page-topbar':menuPosition=='top'}">
-		
-		<webcorp-header></webcorp-header>
-		<webcorp-main>
-			<webcorp-menu data-menus="menus" data-position="menuPosition"></webcorp-menu>
-			<webcorp-content></webcorp-content>
-		</webcorp-main>
-		<webcorp-footer></webcorp-footer>	
+		<div ui-view>
+			<webcorp-header></webcorp-header>
+			<webcorp-main>
+				<webcorp-menu data-menus="menus" data-position="menuPosition"></webcorp-menu>
+				<webcorp-content></webcorp-content>
+			</webcorp-main>
+			<webcorp-footer></webcorp-footer>	
+		</div>
 		<!--<my-directive >
 			<div ui-view/>
 		</my-directive>-->

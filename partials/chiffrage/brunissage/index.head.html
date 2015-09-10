@@ -1,0 +1,33 @@
+
+<div class="btn-toolbar">
+	<a href="#" class="toolbar_btn dropdown-toolbar navbar-toggle" data-toggle="collapse" data-target="#toolbar-nav"><i class="process-icon-dropdown"></i><div>Menu</div></a>
+	<ul id="toolbar-nav" class="nav nav-pills pull-right collapse navbar-collapse">
+		<li>
+			<a id="page-header-desc-customer-new_customer" class="toolbar_btn  pointer" href="index.php?controller=AdminCustomers&amp;addcustomer&amp;token=1f9bebcc52f15aa0faae28144c6b303e" title="Ajouter un nouveau client">
+				<i class="process-icon-new"></i>
+				<div>Ajouter un nouveau Brunissage</div>
+			</a>
+		</li>
+		<!--<li>
+			<a id="page-header-desc-customer-modules-list" class="toolbar_btn" href="#" title="Modules et services recommandés">
+				<i class="process-icon-modules-list"></i>
+				<div>Modules et services recommandés</div>
+			</a>
+		</li>-->
+		<li>
+			<a class="toolbar_btn btn-help" href="http://help.prestashop.com/fr/doc/AdminCustomers?version=1.6.1.1&amp;country=fr" title="Aide">
+				<i class="process-icon-help"></i>
+				<div>Aide</div>
+			</a>
+		</li>
+						</ul>
+		<script type="text/javascript">
+	//<![CDATA[
+		var modules_list_loaded = false;
+				$('.process-icon-modules-list').parent('a').unbind().bind('click', function (){
+				$('#modules_list_container').modal('show');
+				openModulesList();
+			});
+						//]]>
+	</script>
+</div>

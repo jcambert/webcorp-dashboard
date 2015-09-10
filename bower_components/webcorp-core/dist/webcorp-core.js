@@ -128,6 +128,8 @@ angular.module('webcorp.core',[])
 		
 	}
 }])
+
+
 .provider('$wview',function $wviewProvider(){
 	
 	var $defaultPartialsRoot='partials/';
@@ -145,11 +147,11 @@ angular.module('webcorp.core',[])
 		$defaultContentSuffix=suffix;
 	}
 	this.head=function(folder,view){
-		view=angular.isDefined(view)?folder+'/'+view:folder; 
+		view=angular.isDefined(view)?folder.replace('.','/')+'/'+view:folder; 
 		return $defaultPartialsRoot + view.toLowerCase() + '.'+$defaultHeadSuffix+'.html';
 	};
 	this.content = function(folder,view){
-		view=angular.isDefined(view)?folder+'/'+view:folder; 
+		view=angular.isDefined(view)?folder.replace('.','/')+'/'+view:folder; 
 		return $defaultPartialsRoot+ view.toLowerCase() + '.'+$defaultContentSuffix+'.html';
 	}
 	
