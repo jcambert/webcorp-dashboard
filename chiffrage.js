@@ -2,12 +2,13 @@
 
 
 */
-webcorp.dependencies.add('erp.chiffrage');
+var ERP_CHIFFRAGE='erp.chiffrage';
+webcorp.dependencies.add(ERP_CHIFFRAGE);
 
 (function(angular){
 	'use strict';
 
-var chiffrage=angular.module('erp.chiffrage',['ui.router', 'webcorp.core','webcorp.ui.menu']);
+var chiffrage=angular.module(ERP_CHIFFRAGE,['ui.router', 'webcorp.core','webcorp.ui.menu']);
 
 chiffrage.config(['$logProvider','$stateProvider','$wviewProvider',function($log,$stateProvider,$wview){
 	$stateProvider
